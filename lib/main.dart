@@ -4,6 +4,8 @@ import 'package:flutter/painting.dart';
 
 void main() => runApp(MyApp());
 
+final int mainColor = 0xffF7F1E8;
+
 class MyApp extends StatelessWidget {
   const MyApp({ Key? key }) : super(key: key);
 
@@ -24,7 +26,7 @@ class Mayple extends StatelessWidget {
 
   final double commonPadding = 20.0;
 
-  Widget _featureBox({context: BuildContext, title: String, description: String}) {
+  Widget _featureBox({context = BuildContext, title = String, description = String}) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.50,
       decoration: BoxDecoration(
@@ -69,17 +71,72 @@ class Mayple extends StatelessWidget {
             fontWeight: FontWeight.bold
           ),
         ),
-        backgroundColor: Color(0xffF7F1E8),
+        backgroundColor: Color(mainColor),
         elevation: 0.0,
-        actions: [
-          IconButton(
-            onPressed: () {}, 
-            icon: Icon(
-              Icons.menu,
-              color: Colors.redAccent,
+      ),
+      drawer: Drawer(
+        child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          UserAccountsDrawerHeader(
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: AssetImage('assets/jjh.jpg'),
+              backgroundColor: Colors.white,
             ),
+            otherAccountsPictures: const [
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage("assets/img1.jpg"),
+              )
+            ],
+            accountName: Text(
+              '전지현',
+              style: TextStyle(
+                color: Colors.black
+              ),
+            ),
+            accountEmail: Text(
+              'jjh@gmail.com',
+              style: TextStyle(color: Colors.black),
+            ),
+            onDetailsPressed: () {
+              print('arrow is clicked');
+            },
+            decoration: BoxDecoration(
+                color: Color(mainColor),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40.0),
+                    bottomRight: Radius.circular(40.0))),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.home,
+              color: Colors.grey[850]
+            ),
+            title: Text('Home'),
+            onTap: () {
+              print('Home is cliked');
+            },
+            trailing: Icon(Icons.add),
+          ),
+          ListTile(
+            leading: Icon(Icons.settings, color: Colors.grey[850]),
+            title: Text('Setting'),
+            onTap: () {
+              print('Setting is cliked');
+            },
+            trailing: Icon(Icons.add),
+          ),
+          ListTile(
+            leading: Icon(Icons.question_answer, color: Colors.grey[850]),
+            title: Text('Q&A'),
+            onTap: () {
+              print('Q&A is cliked');
+            },
+            trailing: Icon(Icons.add),
           )
         ],
+      )
       ),
       body: Column(
         children: [
