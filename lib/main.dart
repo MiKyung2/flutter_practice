@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 
 void main() => runApp(MyApp());
 
-final int mainColor = 0xffF7F1E8;
+const mainColor = 0xffF7F1E8;
 
 class MyApp extends StatelessWidget {
   const MyApp({ Key? key }) : super(key: key);
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'mayple',
       theme: ThemeData(
-        fontFamily: 'Noto_Serif_KR',
+        fontFamily: 'RobotoSlab',
       ),
       home: Mayple(),
     );
@@ -71,6 +71,9 @@ class Mayple extends StatelessWidget {
             fontWeight: FontWeight.bold
           ),
         ),
+        iconTheme: IconThemeData(
+          color: Colors.redAccent
+        ),
         backgroundColor: Color(mainColor),
         elevation: 0.0,
       ),
@@ -103,10 +106,12 @@ class Mayple extends StatelessWidget {
               print('arrow is clicked');
             },
             decoration: BoxDecoration(
-                color: Color(mainColor),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40.0),
-                    bottomRight: Radius.circular(40.0))),
+              color: Color(mainColor),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40.0),
+                bottomRight: Radius.circular(40.0)
+              )
+            ),
           ),
           ListTile(
             leading: Icon(
@@ -138,135 +143,144 @@ class Mayple extends StatelessWidget {
         ],
       )
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 9,
-            child:  Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/jjh.jpg"), 
-                  fit: BoxFit.contain
-                )
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(commonPadding),
-                child:
-                  Text("Find your industry's\ntop vetted marketing\nexperts",
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w800,
-                    )),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 6,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: EdgeInsets.all(commonPadding),
-                    child: Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Stefan Garlson',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
-                            SizedBox(
-                              height: 14,
-                            ),
-                            Row(children: const [
-                              Text(
-                                '4.8',
-                                style: TextStyle(
-                                  color: Colors.redAccent, fontSize: 18),
-                              ),
-                              SizedBox(
-                                width: 16,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(right: 2),
-                                child: Icon(
-                                  Icons.star,
-                                  color: Colors.redAccent,
-                                )),
-                              Padding(
-                                padding: EdgeInsets.only(right: 2),
-                                child: Icon(
-                                  Icons.star,
-                                  color: Colors.redAccent,
-                                )),
-                              Padding(
-                                  padding: EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.star,
-                                    color: Colors.redAccent,
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.star,
-                                    color: Colors.redAccent,
-                                  )),
-                              Padding(
-                                  padding: EdgeInsets.only(right: 2),
-                                  child: Icon(
-                                    Icons.star_half,
-                                    color: Colors.redAccent,
-                                  ))
-                            ])
-                          ]
-                        )
-                      ],
-                    ),
-                  )
-                ),
-                Expanded(
-                  flex: 4,
+      body: Builder(builder: (BuildContext ctx) {
+        return Column(
+          children: [
+            Expanded(
+              flex: 9,
+              child:  Padding(
+                  padding: EdgeInsets.all(commonPadding),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          _featureBox(
-                            context: context,
-                            title: 'MARKETING EXPERTISE:', 
-                            description: 'Tech expert'
-                          ),
-                          _featureBox(
-                            context: context,
-                            title: 'EXPERIENCE',
-                            description: '8 years'
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          _featureBox(
-                            context: context,
-                            title: 'WORKED WITH:',
-                            description: 'Jolt, Monday,\nSalesforce'
-                          ),
-                          _featureBox(
-                            context: context,
-                            title: 'AVG, INCREASE IN SALES:',
-                            description: '+146%'
-                          ),
-                        ],
-                      ),
+                      Text(
+                      "Find your industry's\ntop vetted marketing\nexperts",
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w800,
+                      )),
+                      GestureDetector(
+                        onTap: () {
+                          Scaffold.of(ctx).showSnackBar(SnackBar(content: Text("Hello")));
+                        }, // handle your image tap here
+                        child: Image.asset(
+                          'assets/jjh.jpg',
+                          fit: BoxFit.cover, // this is the solution for border
+                          width: 110.0,
+                          height: 110.0,
+                        ),
+                      )
                     ],
                   ),
                 )
-              ],
+            ),
+            Expanded(
+              flex: 6,
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: EdgeInsets.all(commonPadding),
+                      child: Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Stefan Garlson',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                              SizedBox(
+                                height: 14,
+                              ),
+                              Row(children: const [
+                                Text(
+                                  '4.8',
+                                  style: TextStyle(
+                                    color: Colors.redAccent, fontSize: 18),
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 2),
+                                  child: Icon(
+                                    Icons.star,
+                                    color: Colors.redAccent,
+                                  )),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 2),
+                                  child: Icon(
+                                    Icons.star,
+                                    color: Colors.redAccent,
+                                  )),
+                                Padding(
+                                    padding: EdgeInsets.only(right: 2),
+                                    child: Icon(
+                                      Icons.star,
+                                      color: Colors.redAccent,
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.only(right: 2),
+                                    child: Icon(
+                                      Icons.star,
+                                      color: Colors.redAccent,
+                                    )),
+                                Padding(
+                                    padding: EdgeInsets.only(right: 2),
+                                    child: Icon(
+                                      Icons.star_half,
+                                      color: Colors.redAccent,
+                                    ))
+                              ])
+                            ]
+                          )
+                        ],
+                      ),
+                    )
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            _featureBox(
+                              context: context,
+                              title: 'MARKETING EXPERTISE:', 
+                              description: 'Tech expert'
+                            ),
+                            _featureBox(
+                              context: context,
+                              title: 'EXPERIENCE',
+                              description: '8 years'
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            _featureBox(
+                              context: context,
+                              title: 'WORKED WITH:',
+                              description: 'Jolt, Monday,\nSalesforce'
+                            ),
+                            _featureBox(
+                              context: context,
+                              title: 'AVG, INCREASE IN SALES:',
+                              description: '+146%'
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )
             )
-          )
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }
