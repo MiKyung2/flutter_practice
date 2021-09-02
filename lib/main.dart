@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
+import 'second_page.dart';
+
 void main() => runApp(MyApp());
 
 const mainColor = 0xffF7F1E8;
@@ -120,6 +122,9 @@ class Mayple extends StatelessWidget {
             ),
             title: Text('Home'),
             onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) => SecondPage()
+              ));
               print('Home is cliked');
             },
             trailing: Icon(Icons.add),
@@ -147,7 +152,7 @@ class Mayple extends StatelessWidget {
         return Column(
           children: [
             Expanded(
-              flex: 9,
+              flex: 2,
               child:  Padding(
                   padding: EdgeInsets.all(commonPadding),
                   child: Column(
@@ -161,20 +166,25 @@ class Mayple extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           Scaffold.of(ctx).showSnackBar(SnackBar(content: Text("Hello")));
-                        }, // handle your image tap here
-                        child: Image.asset(
-                          'assets/jjh.jpg',
-                          fit: BoxFit.cover, // this is the solution for border
-                          width: 110.0,
-                          height: 110.0,
-                        ),
+                        },
+                        child: 
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(Color(0xFFF7F1E8), BlendMode.darken),
+                            child: Image.asset(
+                              'assets/jjh.jpg',
+                            ),
+                          ),
+                        // Image.asset(
+                        //   'assets/jjh.jpg',
+                        //   fit: BoxFix.,
+                        // ),
                       )
                     ],
                   ),
                 )
             ),
             Expanded(
-              flex: 6,
+              flex: 1,
               child: Column(
                 children: [
                   Expanded(
