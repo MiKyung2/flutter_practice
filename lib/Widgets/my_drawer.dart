@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+// import 'package:percent_indicator/percent_indicator.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Data {
   String name;
@@ -110,9 +111,9 @@ class MyDrawer extends StatelessWidget {
           child: Column(
             children: [
               Text('Coding'),
-              _LineChartColumn(title: "Flutter", percent: 80),
-              _LineChartColumn(title: "Django", percent: 72),
-              _LineChartColumn(title: "Firebase", percent: 65),
+              _BarChartColumn(title: "Flutter", percent: 80),
+              _BarChartColumn(title: "Django", percent: 72),
+              _BarChartColumn(title: "Firebase", percent: 65),
             ],
           ),
         ),
@@ -121,11 +122,11 @@ class MyDrawer extends StatelessWidget {
   }
 }
 
-class _LineChartColumn extends StatelessWidget {
+class _BarChartColumn extends StatelessWidget {
   String title;
   int percent;
 
-  _LineChartColumn({
+  _BarChartColumn({
     required this.title,
     required this.percent,
     Key? key,
@@ -140,17 +141,28 @@ class _LineChartColumn extends StatelessWidget {
             Text("Dart"),
             Text("70%"),
           ],),
-          LinearPercentIndicator(
-            width: 100.0,
-            lineHeight: 8.0,
-            percent: 0.3,
-            progressColor: Theme.of(context).accentColor,
-          ),
+          SfCartesianChart(series: <ChartSeries>[
+          // Renders bar chart
+          BarSeries<Data, double>(
+              dataSource: [
+                Data(name: this.title, percent: percent),],
+              xValueMapper: (Data data, _) => 2,
+              yValueMapper: (Data data, _) => data.percent)
+        ])
+
+          // LinearPercentIndicator(
+          //   width: 100.0,
+          //   lineHeight: 8.0,
+          //   percent: 0.3,
+          //   progressColor: Theme.of(context).accentColor,
+          // ),
+          
         ]
       ),
     );
   }
 }
+
 class _chartColumn extends StatelessWidget {
   String title;
   int percent;
@@ -169,28 +181,29 @@ class _chartColumn extends StatelessWidget {
         Container(
             width: 120,
             height: 120,
-            child: CircularPercentIndicator(
-              radius: 60.0,
-              lineWidth: 5.0,
-              percent: percent / 100,
-              center: Text(percent as String),
-              progressColor: Theme.of(context).accentColor,
-            ),
-            // SfCircularChart(palette: [
-            //   Theme.of(context).accentColor,
-            //   Color(0xff1e1e28),
-            // ], series: <CircularSeries>[
-            //   DoughnutSeries<Data, String>(
-            //       dataSource: [
-            //         Data(name: "Flutter", percent: percent),
-            //         Data(name: "Flutter", percent: 100- percent),
-            //       ],
-            //       xValueMapper: (Data data, _) => data.name,
-            //       yValueMapper: (Data data, _) => data.percent,
-            //       dataLabelSettings:
-            //           DataLabelSettings(isVisible: true),
-            //       enableTooltip: true)
-            // ]),
+            child: 
+            // CircularPercentIndicator(
+            //   radius: 60.0,
+            //   lineWidth: 5.0,
+            //   percent: percent / 100,
+            //   center: Text(percent as String),
+            //   progressColor: Theme.of(context).accentColor,
+            // ),
+            SfCircularChart(palette: [
+              Theme.of(context).accentColor,
+              Color(0xff1e1e28),
+            ], series: <CircularSeries>[
+              DoughnutSeries<Data, String>(
+                  dataSource: [
+                    Data(name: "Flutter", percent: percent),
+                    Data(name: "Flutter", percent: 100- percent),
+                  ],
+                  xValueMapper: (Data data, _) => data.name,
+                  yValueMapper: (Data data, _) => data.percent,
+                  dataLabelSettings:
+                      DataLabelSettings(isVisible: true),
+                  enableTooltip: true)
+            ]),
           ),
         Text(title)
       ]
